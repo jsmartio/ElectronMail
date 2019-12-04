@@ -187,12 +187,13 @@ function initLocations(
             },
         },
         vendorsAppCssLinkHref: (() => {
-            const file = appRelativePath("./web/browser-window/vendor.css");
+            const webRelativeCssFilePath = "browser-window/vendor.css";
+            const file = appRelativePath("web", webRelativeCssFilePath);
             const stat = storeFs._impl.statSync(file);
             if (!stat.isFile()) {
                 throw new Error(`Location "${file}" exists but it's not a file`);
             }
-            return formatFileUrl(file);
+            return `web://${webRelativeCssFilePath}`;
         })(),
         ...(() => {
             const {protocolBundles, webClients}: Pick<ElectronContextLocations, "webClients">
